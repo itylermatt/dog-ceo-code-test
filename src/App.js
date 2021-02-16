@@ -2,6 +2,7 @@ import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import Select from './components/Select/Select';
 import Button from './components/Button/Button';
+import Images from './components/Images/Images';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
@@ -14,7 +15,7 @@ function App() {
     const [selectedSubBreed, setSelectedSubBreed] = useState('');
     const [breedError, setBreedError] = useState(false);
     const [subBreedError, setSubBreedError] = useState(false);
-    const [images, setImages] = useState('');
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         axios.get('https://dog.ceo/api/breeds/list/all').then((response) => {
@@ -60,10 +61,20 @@ function App() {
         if(selectedSubBreed !== '') {
             axios.get(`https://dog.ceo/api/breed/${selectedBreed}/${selectedSubBreed}/images`).then(response => {
                 console.log(response);
+                const tempImages = [];
+                for(let index = 0; index < numberOfImages; index++) {
+                    tempImages.push(response.data.message[index]);
+                }
+                setImages([...tempImages]);
             }).catch(e => console.log(e));
         } else {
             axios.get(`https://dog.ceo/api/breed/${selectedBreed}/images`).then(response => {
                 console.log(response);
+                const tempImages = [];
+                for(let c = 0; c < numberOfImages; c++) {
+                    tempImages.push(response.data.message[c]);
+                }
+                setImages(tempImages);
             }).catch(e => console.log(e));
         }
         setSelectedSubBreed('');
@@ -85,6 +96,10 @@ function App() {
                 <div className={'ViewImagesButton'}>
                     <Button onChange={submitHandler}/>
                 </div>
+            </div>
+
+            <div>
+                <Images images={images} />
             </div>
         </div>
     );
