@@ -36,6 +36,7 @@ function App() {
 
     const breedSelectHandler = (breedSelected) => {
         setSubBreeds([]);
+        setSelectedSubBreed('');
         setSelectedBreed(breedSelected);
         for (const breed in allBreeds) {
             if (breed === breedSelected) {
