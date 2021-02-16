@@ -18,6 +18,11 @@ function App() {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
+        fetchBreeds();
+    }, []);
+
+
+    const fetchBreeds = () => {
         axios.get('https://dog.ceo/api/breeds/list/all').then((response) => {
             const temp = response.data.message;
             setAllBreeds(temp);
@@ -27,9 +32,10 @@ function App() {
             }
             setBreeds(tempBreeds);
         }).catch(e => console.log(e));
-    }, []);
+    };
 
     const breedSelectHandler = (breedSelected) => {
+        setSubBreeds([]);
         setSelectedBreed(breedSelected);
         for (const breed in allBreeds) {
             if (breed === breedSelected) {
@@ -77,9 +83,12 @@ function App() {
                 setImages(tempImages);
             }).catch(e => console.log(e));
         }
-        setSelectedSubBreed('');
-        setSelectedBreed('');
-        setNumberOfImages(0);
+        // setSelectedSubBreed('');
+        // setSelectedBreed('');
+        // setNumberOfImages(0);
+        // setBreeds([]);
+        // setSubBreeds([]);
+        // fetchBreeds();
     };
 
 
