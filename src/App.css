@@ -1,0 +1,8 @@
+.selectButtons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ViewImagesButton {
+    margin-top: 10px;
+}
