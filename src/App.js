@@ -55,7 +55,6 @@ function App() {
     };
 
     const submitHandler = () => {
-        console.log('selected details are: ', selectedBreed, selectedSubBreed, numberOfImages);
         if(selectedBreed===''){
             setBreedError(true);
             return;
@@ -66,7 +65,6 @@ function App() {
         }
         if(selectedSubBreed !== '') {
             axios.get(`https://dog.ceo/api/breed/${selectedBreed}/${selectedSubBreed}/images`).then(response => {
-                console.log(response);
                 const tempImages = [];
                 for(let index = 0; index < numberOfImages; index++) {
                     tempImages.push(response.data.message[index]);
@@ -75,7 +73,6 @@ function App() {
             }).catch(e => console.log(e));
         } else {
             axios.get(`https://dog.ceo/api/breed/${selectedBreed}/images`).then(response => {
-                console.log(response);
                 const tempImages = [];
                 for(let c = 0; c < numberOfImages; c++) {
                     tempImages.push(response.data.message[c]);
@@ -83,12 +80,6 @@ function App() {
                 setImages(tempImages);
             }).catch(e => console.log(e));
         }
-        // setSelectedSubBreed('');
-        // setSelectedBreed('');
-        // setNumberOfImages(0);
-        // setBreeds([]);
-        // setSubBreeds([]);
-        // fetchBreeds();
     };
 
 
