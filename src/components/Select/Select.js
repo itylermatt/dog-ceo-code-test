@@ -16,6 +16,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+/*
+*
+* ***Material UI Select Button is giving an error in the console log when clicked due to Strict Mode being used***
+*
+* The error is coming because Material UI using react-transition-group component is
+*  which trying to use findDOMNode method which is deprecated and they haven't fixed it yet
+*
+* According to https://stackoverflow.com/questions/61115871/finddomnode-error-on-react-material-ui-select-menu
+* */
+
+
 const SimpleSelect = (props) => {
     const classes = useStyles();
     const [selectValue, setSelectValue] = React.useState('');
@@ -46,7 +57,7 @@ const SimpleSelect = (props) => {
 
                     }
                 </Select>
-                {!props.disabled? <FormHelperText>Required*</FormHelperText>: null}
+                {!props.disabled ? <FormHelperText>Required*</FormHelperText> : null}
             </FormControl>
         </div>
     );
