@@ -14,6 +14,7 @@ function App() {
     const [selectedSubBreed, setSelectedSubBreed] = useState('');
     const [breedError, setBreedError] = useState(false);
     const [subBreedError, setSubBreedError] = useState(false);
+    const [images, setImages] = useState('');
 
     useEffect(() => {
         axios.get('https://dog.ceo/api/breeds/list/all').then((response) => {
@@ -50,13 +51,24 @@ function App() {
         console.log('selected details are: ', selectedBreed, selectedSubBreed, numberOfImages);
         if(selectedBreed===''){
             setBreedError(true);
+            return;
         }
         if(subBreeds.length && selectedSubBreed === '') {
             setSubBreedError(true);
+            return;
         }
-        // setSelectedSubBreed('');
-        // setSelectedBreed('');
-        // setNumberOfImages(0);
+        if(selectedSubBreed !== '') {
+            axios.get(`https://dog.ceo/api/breed/${selectedBreed}/${selectedSubBreed}/images`).then(response => {
+                console.log(response);
+            }).catch(e => console.log(e));
+        } else {
+            axios.get(`https://dog.ceo/api/breed/${selectedBreed}/images`).then(response => {
+                console.log(response);
+            }).catch(e => console.log(e));
+        }
+        setSelectedSubBreed('');
+        setSelectedBreed('');
+        setNumberOfImages(0);
     };
 
 
